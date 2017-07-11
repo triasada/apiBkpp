@@ -10,12 +10,13 @@ import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 public class SingleConn
 {
   private static final Logger log = Logger.getLogger("");
+  
   public SingleConnectionDataSource ds;
   public static Connection conn;
   
   public SingleConn()
   {
-    String jdbcURL = "jdbc:mysql://localhost:3306/InventoryMcpDev";
+    String jdbcURL = "jdbc:mysql://localhost:3306/simpeg";
     String $userName = "root";
     String $password = "bkpp::2016!123";
     
