@@ -7,7 +7,8 @@ package bkpprestfulservice.model;
 
 /**
  *
- * @author novryanizm
+ * @author novryanizm & Mukti Cahya
+ * @since 12 July, 2017
  */
 public class BkppRestFulServiceModel {
 
