@@ -35,4 +35,12 @@ public class QueryBkp extends JdbcTemplate{
         List<Map<String, Object>> result = this.queryForList(sql,new Object[]{nip});
         return result;
     }
+    
+    public boolean login(String username,String password){
+        System.out.println("username : "+ username);
+        System.out.println("password : "+ password);       
+        String sql = "SELECT COUNT(1) FROM simpeg.users where username = ? AND password = ?";
+        Integer result = this.queryForObject(sql, new Object[]{username,password},Integer.class);
+        return result>0;       
+    }
 }
