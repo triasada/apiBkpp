@@ -25,15 +25,15 @@ public class BkppModel extends JdbcTemplate{
         super(dataSource);
     }
     
-    SingleConn singleConn = new SingleConn();
+//    SingleConn singleConn = new SingleConn();
     
-    public EmployRes getEmployee(EmployReq employReq){
-        EmployRes employRes = new EmployRes();
-        QueryBkp queryBkp = new QueryBkp(singleConn.ds);
-        List<Map<String, Object>> result = queryBkp.getEmploy(employReq.getNip());
-        employRes.setNama("nama");
-        
-        return employRes;
-        
-    }
+//    public EmployRes getEmployee(EmployReq employReq){
+//        EmployRes employRes = new EmployRes();
+//        QueryBkp queryBkp = new QueryBkp(singleConn.ds);
+//        List<Map<String, Object>> result = queryBkp.getEmploy(employReq.getNip());
+//        employRes.setNama("nama");
+//        
+//        return employRes;
+//        
+//    }
 }

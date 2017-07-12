@@ -32,8 +32,8 @@ public class LoginModel extends JdbcTemplate {
         String username = request.getLoginIn().getUsername();
         String password = request.getLoginIn().getPassword();
 
-        QueryBkp queryBkp = new QueryBkp(this.getDataSource());
-        boolean result = queryBkp.login(username, password);
+//        boolean result = login(username, password);
+        boolean result = login(username);
         if (result) {
             errorMessage.setErrorApi("Login");
             errorMessage.setErrorCode("00");
@@ -47,4 +47,18 @@ public class LoginModel extends JdbcTemplate {
         response.setLoginOut(loginOut);
         return response;
     }
+     public boolean login(String username){
+        System.out.println("username : "+ username);
+//        System.out.println("password : "+ password);       
+        String sql = "SELECT COUNT(1) FROM simpeg.users where username = ? ";
+        Integer result = this.queryForObject(sql, new Object[]{username},Integer.class);
+        return result>0;       
+    }
+//     public boolean login(String username,String password){
+//        System.out.println("username : "+ username);
+//        System.out.println("password : "+ password);       
+//        String sql = "SELECT COUNT(1) FROM simpeg.users where username = ? AND password = ?";
+//        Integer result = this.queryForObject(sql, new Object[]{username,password},Integer.class);
+//        return result>0;       
+//    }
 }

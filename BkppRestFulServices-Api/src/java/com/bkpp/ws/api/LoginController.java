@@ -22,7 +22,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<LoginResponse> doLogin(@RequestBody LoginRequest request) {
-        SingleConn conn = new SingleConn();
+       SingleConn conn = new SingleConn();
         LoginModel model = new LoginModel(conn.ds);
         LoginResponse response = model.login(request);
         return new ResponseEntity<>(response, HttpStatus.OK);
