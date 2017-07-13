@@ -10,15 +10,16 @@ package com.bkpp.ws.model.vo.cariNip;
  * @author novryanizm
  */
 public class CariNipRequest {
-    String CariNipIn;
+   CariNipIn cariNipIn;
 
-    public String getCariNipIn() {
-        return CariNipIn;
+    public CariNipIn getCariNipIn() {
+        return cariNipIn;
     }
 
-    public void setCariNipIn(String CariNipIn) {
-        this.CariNipIn = CariNipIn;
+    public void setCariNipIn(CariNipIn cariNipIn) {
+        this.cariNipIn = cariNipIn;
     }
-    
+
+   
     
 }

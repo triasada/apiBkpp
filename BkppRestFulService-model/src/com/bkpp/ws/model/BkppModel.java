@@ -4,17 +4,10 @@
  * and open the template in the editor.
  */
 package com.bkpp.ws.model;
-import com.bkpp.ws.logic.QueryBkp;
 import com.bkpp.ws.model.vo.cariNip.CariNipOut;
 import com.bkpp.ws.model.vo.cariNip.CariNipRequest;
 import com.bkpp.ws.model.vo.cariNip.CariNipRespons;
-import com.bkpp.ws.model.vo.employ.EmployReq;
-import com.bkpp.ws.model.vo.employ.EmployRes;
 import com.bkpp.ws.model.vo.errorMessage.ErrorMessage;
-import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import javax.sql.DataSource;
 
 
@@ -30,26 +23,25 @@ public class BkppModel extends JdbcTemplate{
         super(dataSource);
     }
     
-    SingleConn singleConn = new SingleConn();
     
-    public EmployRes getEmployee(EmployReq employReq){
-        EmployRes employRes = new EmployRes();
-        QueryBkp queryBkp = new QueryBkp(singleConn.ds);
-        List<Map<String, Object>> result = queryBkp.getEmploy(employReq.getEmployIn());
-        employRes.setEmployOut("EmployOut");
-        
-        return employRes;     
-    }
+//    public EmployRes getEmployee(EmployReq employReq){
+//        EmployRes employRes = new EmployRes();
+//        QueryBkp queryBkp = new QueryBkp(singleConn.ds);
+//        List<Map<String, Object>> result = queryBkp.getEmploy(employReq.getEmployIn());
+//        employRes.setEmployOut("EmployOut");
+//        
+//        return employRes;     
+//    }
     
     public CariNipRespons getCariNip(CariNipRequest request){
         CariNipRespons respons = new CariNipRespons();
-        QueryBkp queryBkp = new QueryBkp(singleConn.ds);
+//        QueryBkp queryBkp = new QueryBkp(singleConn.ds);
         CariNipOut cariNipOut = new CariNipOut();
         ErrorMessage errorMessage = new ErrorMessage();
         
-        String nip = request.getCariNipIn();
+        String nip = request.getCariNipIn().getNip();
         
-        boolean result = queryBkp.cariNip(nip);
+        boolean result = cariNip(nip);
         if (result) {
             errorMessage.setErrorApi("cariNip");
             errorMessage.setErrorCode("00");
@@ -63,5 +55,12 @@ public class BkppModel extends JdbcTemplate{
         respons.setCariNipOut(nip);
         return respons;
         
+    }
+    public boolean cariNip(String nip){
+        System.out.println("NIP yang dicari"+nip);
+        
+        String sql = "SELECT COUNT(1) FROM SIMPEG.USERS WHERE NIP=?";
+        Integer result = this.queryForObject(sql, new Object[]{nip}, Integer.class);
+        return result > 0;
     }
 }

@@ -9,6 +9,7 @@ import com.bkpp.ws.model.BkppModel;
 import com.bkpp.ws.model.SingleConn;
 import com.bkpp.ws.model.vo.cariNip.CariNipRequest;
 import com.bkpp.ws.model.vo.cariNip.CariNipRespons;
+import java.sql.SQLException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CariNipController {
 
     @RequestMapping(value = "/cariNip", method = RequestMethod.POST)
-    public ResponseEntity<CariNipRespons> cariNip(@RequestBody CariNipRequest request) {
+    public ResponseEntity<CariNipRespons> cariNip(@RequestBody CariNipRequest request) throws SQLException {
         SingleConn conn = new SingleConn();
         BkppModel model = new BkppModel(conn.ds);
         CariNipRespons respons = model.getCariNip(request);

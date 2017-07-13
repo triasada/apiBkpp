@@ -5,7 +5,6 @@
  */
 package com.bkpp.ws.model;
 
-import com.bkpp.ws.logic.QueryBkp;
 import com.bkpp.ws.model.vo.errorMessage.ErrorMessage;
 import com.bkpp.ws.model.vo.login.LoginOut;
 import com.bkpp.ws.model.vo.login.LoginRequest;

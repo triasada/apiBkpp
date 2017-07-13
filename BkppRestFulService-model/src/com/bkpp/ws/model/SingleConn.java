@@ -17,7 +17,7 @@ public class SingleConn {
     public static Connection conn;
     Session session = null;
 
-    public SingleConn() {
+    public SingleConn() throws SQLException {
         String host = "simpeg.tangerangselatankota.go.id";
         String servUser = "root";
         String servPwd = "bkpp::2016!123";
@@ -25,19 +25,19 @@ public class SingleConn {
 
         String rhost = "localhost";
         int rport = 3306;
-        int lport = 3307;
+        int lport = 2222;
 
         String driverName = "com.mysql.jdbc.Driver";
         String db2Url = "jdbc:mysql://localhost:" + lport + "/simpeg";
         String dbUsr = "root";
         String dbPwd = "bkpp::2016!123";
 
-        this.ds = new SingleConnectionDataSource();
+        ds = new SingleConnectionDataSource();
 
-        this.ds.setDriverClassName(driverName);
-        this.ds.setUrl(db2Url);
-        this.ds.setUsername(dbUsr);
-        this.ds.setPassword(dbPwd);
+        ds.setDriverClassName(driverName);
+        ds.setUrl(db2Url);
+        ds.setUsername(dbUsr);
+        ds.setPassword(dbPwd);
         try {
             JSch jsch = new JSch();
             // Get SSH session
@@ -50,7 +50,7 @@ public class SingleConn {
             // Connect to remote server
             session.connect();
             // Apply the port forwarding
-            session.setPortForwardingL(lport, rhost, rport);
+            session.setPortForwardingL("0.0.0.0",lport, rhost, rport);
             // Connect to remote database
             conn = DriverManager.getConnection(db2Url, dbUsr, dbPwd);
 //      log.log(Level.INFO, "Database connection success");
@@ -60,6 +60,14 @@ public class SingleConn {
             System.out.println("Database connection error: {0}" + e.getMessage());
         } catch (JSchException ex) {
             Logger.getLogger(SingleConn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            if (conn != null && !conn.isClosed()) {
+                conn.close();
+            }
+            if (session != null && session.isConnected()) {
+                session.disconnect();
+            }
         }
     }
 }
