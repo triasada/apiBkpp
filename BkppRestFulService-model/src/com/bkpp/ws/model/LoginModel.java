@@ -47,6 +47,7 @@ public class LoginModel extends JdbcTemplate {
             loginOut.setMytmt(((Timestamp) map.get("mytmt")).toString());
             loginOut.setNamaLengkap((String) map.get("nama_lengkap"));
             loginOut.setNip((String) map.get("nip"));
+            loginOut.setKdOrganisasi((String) map.get("kd_organisasi"));
             
         } else {
             errorMessage.setErrorApi("Login");
@@ -68,7 +69,7 @@ public class LoginModel extends JdbcTemplate {
     }
 
     public Map getDetailLogin(String nip , String password) {
-        String sql = "SELECT a.nama_lengkap,a.nip,i.foto,i.id_identitas, rj.kd_jabatan ,max(mytmt) mytmt "
+        String sql = "SELECT a.nama_lengkap,a.nip,a.kd_organisasi,i.foto,i.id_identitas, rj.kd_jabatan ,max(mytmt) mytmt "
                 + "FROM simpeg.users a  "
                 + "join simpeg.identitas i on i.nip = a.nip  "
                 + "join simpeg.riwayat_jabatan rj on rj.id_identitas = i.id_identitas "

@@ -19,7 +19,16 @@ public class LoginOut {
     String idIdentitas;
     String kdJabatan;
     String mytmt;
+    String kdOrganisasi;
 
+    public String getKdOrganisasi() {
+        return kdOrganisasi;
+    }
+
+    public void setKdOrganisasi(String kdOrganisasi) {
+        this.kdOrganisasi = kdOrganisasi;
+    }
+    
     public String getNamaLengkap() {
         return namaLengkap;
     }
