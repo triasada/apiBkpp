@@ -9,8 +9,6 @@ import com.bkpp.ws.model.vo.cariNip.CariNipRequest;
 import com.bkpp.ws.model.vo.cariNip.CariNipRespons;
 import com.bkpp.ws.model.vo.errorMessage.ErrorMessage;
 import javax.sql.DataSource;
-
-
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -42,7 +40,10 @@ public class BkppModel extends JdbcTemplate{
         String nip = request.getCariNipIn().getNip();
         
         boolean result = cariNip(nip);
+        
         if (result) {
+            cariNipOut.setHasilNip(nip);
+            
             errorMessage.setErrorApi("cariNip");
             errorMessage.setErrorCode("00");
             errorMessage.setErrorMessage("Sukses");
@@ -52,14 +53,14 @@ public class BkppModel extends JdbcTemplate{
             errorMessage.setErrorMessage("Invalid Username or Password");
         }
         cariNipOut.setErrorMessage(errorMessage);
-        respons.setCariNipOut(nip);
+        respons.setCariNipOut(cariNipOut);
         return respons;
         
     }
     public boolean cariNip(String nip){
         System.out.println("NIP yang dicari"+nip);
         
-        String sql = "SELECT COUNT(1) FROM SIMPEG.USERS WHERE NIP=?";
+        String sql = "SELECT COUNT(1) FROM simpeg.users WHERE NIP=?";
         Integer result = this.queryForObject(sql, new Object[]{nip}, Integer.class);
         return result > 0;
     }

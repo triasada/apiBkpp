@@ -8,16 +8,17 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 
-public class SingleConn {
+public class SingleConn{
 //  private static final Logger log = Logger.getLogger("");
 
     public static SingleConnectionDataSource ds;
     public static Connection conn;
     Session session = null;
 
-    public SingleConn() throws SQLException {
+    public SingleConn() throws SQLException{
         String host = "simpeg.tangerangselatankota.go.id";
         String servUser = "root";
         String servPwd = "bkpp::2016!123";
@@ -61,13 +62,13 @@ public class SingleConn {
         } catch (JSchException ex) {
             Logger.getLogger(SingleConn.class.getName()).log(Level.SEVERE, null, ex);
         }
-        finally {
-            if (conn != null && !conn.isClosed()) {
-                conn.close();
-            }
-            if (session != null && session.isConnected()) {
-                session.disconnect();
-            }
-        }
+//        finally {
+//            if (conn != null && !conn.isClosed()) {
+//                conn.close();
+//            }
+//            if (session != null && session.isConnected()) {
+//                session.disconnect();
+//            }
+//        }
     }
 }

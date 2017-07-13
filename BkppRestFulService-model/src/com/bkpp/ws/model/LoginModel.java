@@ -50,7 +50,7 @@ public class LoginModel extends JdbcTemplate {
             
         } else {
             errorMessage.setErrorApi("Login");
-            errorMessage.setErrorCode("E0");
+            errorMessage.setErrorCode("10");
             errorMessage.setErrorMessage("Invalid Username or Password");
         }
         loginOut.setErrorMessage(errorMessage);
