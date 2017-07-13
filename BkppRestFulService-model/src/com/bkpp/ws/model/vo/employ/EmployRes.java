@@ -10,15 +10,14 @@ package com.bkpp.ws.model.vo.employ;
  * @author novryanizm
  */
 public class EmployRes {
-    String nama;
+    String EmployOut;
 
-    public String getNama() {
-        return nama;
+    public String getEmployOut() {
+        return EmployOut;
     }
 
-    public void setNama(String nama) {
-        this.nama = nama;
+    public void setEmployOut(String EmployOut) {
+        this.EmployOut = EmployOut;
     }
-    
-    
+
 }

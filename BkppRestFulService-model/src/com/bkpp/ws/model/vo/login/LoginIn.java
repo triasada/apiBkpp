@@ -10,17 +10,18 @@ package com.bkpp.ws.model.vo.login;
  * @author mukticahya
  */
 public class LoginIn {
-    String username;
+    String nip;
     String password;
 
-    public String getUsername() {
-        return username;
+    public String getNip() {
+        return nip;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setNip(String nip) {
+        this.nip = nip;
     }
 
+   
     public String getPassword() {
         return password;
     }

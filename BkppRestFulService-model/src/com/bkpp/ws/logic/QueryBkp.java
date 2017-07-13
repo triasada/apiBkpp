@@ -36,11 +36,20 @@ public class QueryBkp extends JdbcTemplate{
         return result;
     }
     
-    public boolean login(String username,String password){
-        System.out.println("username : "+ username);
-        System.out.println("password : "+ password);       
-        String sql = "SELECT COUNT(1) FROM simpeg.users where username = ? AND password = ?";
-        Integer result = this.queryForObject(sql, new Object[]{username,password},Integer.class);
-        return result>0;       
+    public boolean cariNip(String nip){
+        System.out.println("NIP yang dicari"+nip);
+        
+        String sql = "SELECT COUNT(1) FROM SIMPEG.USERS WHERE NIP=?";
+        Integer result = this.queryForObject(sql, new Object[]{nip}, Integer.class);
+        return result > 0;
     }
+    
+    
+//    public boolean login(String username,String password){
+//        System.out.println("username : "+ username);
+//        System.out.println("password : "+ password);       
+//        String sql = "SELECT COUNT(1) FROM simpeg.users where username = ? AND password = ?";
+//        Integer result = this.queryForObject(sql, new Object[]{username,password},Integer.class);
+//        return result>0;       
+//    }
 }

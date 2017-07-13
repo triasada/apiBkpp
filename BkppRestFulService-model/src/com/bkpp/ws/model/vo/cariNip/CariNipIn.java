@@ -3,22 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bkpp.ws.model.vo.employ;
+package com.bkpp.ws.model.vo.cariNip;
 
 /**
  *
  * @author novryanizm
  */
-public class EmployReq {
-    String EmployIn;
+public class CariNipIn {
+    String nip;
 
-    public String getEmployIn() {
-        return EmployIn;
+    public String getNip() {
+        return nip;
     }
 
-    public void setEmployIn(String EmployIn) {
-        this.EmployIn = EmployIn;
+    public void setNip(String nip) {
+        this.nip = nip;
     }
+    
     
     
 }

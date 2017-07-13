@@ -9,16 +9,14 @@ package com.bkpp.ws.model.vo.employ;
  *
  * @author novryanizm
  */
-public class EmployReq {
-    String EmployIn;
+public class EmployIn {
+    String nip;
 
-    public String getEmployIn() {
-        return EmployIn;
+    public String getNip() {
+        return nip;
     }
 
-    public void setEmployIn(String EmployIn) {
-        this.EmployIn = EmployIn;
+    public void setNip(String nip) {
+        this.nip = nip;
     }
-    
-    
 }

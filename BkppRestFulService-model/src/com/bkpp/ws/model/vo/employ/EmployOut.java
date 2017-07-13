@@ -9,15 +9,15 @@ package com.bkpp.ws.model.vo.employ;
  *
  * @author novryanizm
  */
-public class EmployReq {
-    String EmployIn;
+public class EmployOut {
+    String nama;
 
-    public String getEmployIn() {
-        return EmployIn;
+    public String getNama() {
+        return nama;
     }
 
-    public void setEmployIn(String EmployIn) {
-        this.EmployIn = EmployIn;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
     
     
