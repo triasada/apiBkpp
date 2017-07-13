@@ -9,6 +9,8 @@ import com.bkpp.ws.model.AutoCompleteModel;
 import com.bkpp.ws.model.SingleConn;
 import com.bkpp.ws.model.vo.autocomplete.nip.NipAutoCompleteRequest;
 import com.bkpp.ws.model.vo.autocomplete.nip.NipAutoCompleteResponse;
+import com.bkpp.ws.model.vo.autocomplete.skpd.SkpdAutoCompleteRequest;
+import com.bkpp.ws.model.vo.autocomplete.skpd.SkpdAutoCompleteResponse;
 import java.sql.SQLException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,15 @@ public class AutoCompleteController {
         SingleConn conn = new SingleConn();
         AutoCompleteModel model = new AutoCompleteModel(conn.ds);
         NipAutoCompleteResponse response = model.getNipAutoComplete(request);
+        conn.closedSession();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/skpdAutoComplete", method = RequestMethod.POST)
+    public ResponseEntity<SkpdAutoCompleteResponse> skpdAutoComplete(@RequestBody SkpdAutoCompleteRequest request) throws SQLException {
+        SingleConn conn = new SingleConn();
+        AutoCompleteModel model = new AutoCompleteModel(conn.ds);
+        SkpdAutoCompleteResponse response = model.getSkpdAutoComplete(request);
         conn.closedSession();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
