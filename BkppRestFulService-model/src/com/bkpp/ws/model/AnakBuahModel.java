@@ -10,7 +10,6 @@ import com.bkpp.ws.model.vo.anakbuah.AnakBuahList;
 import com.bkpp.ws.model.vo.anakbuah.AnakBuahOut;
 import com.bkpp.ws.model.vo.anakbuah.AnakBuahRequest;
 import com.bkpp.ws.model.vo.anakbuah.AnakBuahResponse;
-import com.bkpp.ws.model.vo.autocomplete.nip.NipAutoCompleteDetail;
 import com.bkpp.ws.model.vo.errorMessage.ErrorMessage;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,12 +42,12 @@ public class AnakBuahModel extends JdbcTemplate {
         if (result.size() > 0) {
             for (Map<String, Object> next : result) {
                 AnakBuahDetail detail = new AnakBuahDetail();
-                detail.setIdIdentitas((String) next.get("nama_lengkap"));
-                detail.setKdJabatan((String) next.get("nip"));
-                detail.setKdOrganisasi((String) next.get("nip"));
-                detail.setNamaLengkap((String) next.get("nip"));
+                detail.setIdIdentitas(((Integer) next.get("id_identitas")).toString());
+                detail.setKdJabatan((String) next.get("kd_jabatan"));
+                detail.setKdOrganisasi((String) next.get("kd_organisasi"));
+                detail.setNamaLengkap((String) next.get("nama_lengkap"));
                 detail.setNip((String) next.get("nip"));
-                detail.setParent((String) next.get("nip"));
+                detail.setParent(((Integer) next.get("parent")).toString());
                 list.add(detail);
             }
             buahList.setAnakBuahDetail(list);
@@ -68,7 +67,7 @@ public class AnakBuahModel extends JdbcTemplate {
     }
 
     private List<Map<String, Object>> getAnakBuah(String parent, String kdOrganisasi) {
-        String sql = "SELECT a.nama_lengkap,a.nip,a.password,a.kd_organisasi,i.id_identitas, rj.kd_jabatan,tj.parent\n"
+        String sql = "SELECT a.nama_lengkap,a.nip,a.kd_organisasi,i.id_identitas, rj.kd_jabatan,tj.parent\n"
                 + "FROM simpeg.users a\n"
                 + "join simpeg.identitas i on i.nip = a.nip\n"
                 + "join simpeg.riwayat_jabatan rj on rj.id_identitas = i.id_identitas\n"
