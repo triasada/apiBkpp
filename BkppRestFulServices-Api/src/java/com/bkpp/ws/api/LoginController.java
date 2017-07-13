@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<LoginResponse> doLogin(@RequestBody LoginRequest request) throws SQLException {
+    public ResponseEntity<LoginResponse> doLogin(@RequestBody LoginRequest request) throws SQLException{
        SingleConn conn = new SingleConn();
         LoginModel model = new LoginModel(conn.ds);
         LoginResponse response = model.login(request);
