@@ -10,5 +10,14 @@ package com.bkpp.ws.model.vo.autocomplete.jabatan;
  * @author mukticahya
  */
 public class JabatanAutoCompleteOut {
+    JabatanAutoCompleteList jabatanAutoCompleteList;
+
+    public JabatanAutoCompleteList getJabatanAutoCompleteList() {
+        return jabatanAutoCompleteList;
+    }
+
+    public void setJabatanAutoCompleteList(JabatanAutoCompleteList jabatanAutoCompleteList) {
+        this.jabatanAutoCompleteList = jabatanAutoCompleteList;
+    }
     
 }

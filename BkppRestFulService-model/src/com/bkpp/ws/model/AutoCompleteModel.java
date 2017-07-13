@@ -5,6 +5,16 @@
  */
 package com.bkpp.ws.model;
 
+import com.bkpp.ws.model.vo.autocomplete.golongan.GolonganAutoCompleteDetail;
+import com.bkpp.ws.model.vo.autocomplete.golongan.GolonganAutoCompleteList;
+import com.bkpp.ws.model.vo.autocomplete.golongan.GolonganAutoCompleteOut;
+import com.bkpp.ws.model.vo.autocomplete.golongan.GolonganAutoCompleteRequest;
+import com.bkpp.ws.model.vo.autocomplete.golongan.GolonganAutoCompleteResponse;
+import com.bkpp.ws.model.vo.autocomplete.jabatan.JabatanAutoCompleteDetail;
+import com.bkpp.ws.model.vo.autocomplete.jabatan.JabatanAutoCompleteList;
+import com.bkpp.ws.model.vo.autocomplete.jabatan.JabatanAutoCompleteOut;
+import com.bkpp.ws.model.vo.autocomplete.jabatan.JabatanAutoCompleteRequest;
+import com.bkpp.ws.model.vo.autocomplete.jabatan.JabatanAutoCompleteResponse;
 import com.bkpp.ws.model.vo.autocomplete.nip.NipAutoCompleteDetail;
 import com.bkpp.ws.model.vo.autocomplete.nip.NipAutoCompleteList;
 import com.bkpp.ws.model.vo.autocomplete.nip.NipAutoCompleteOut;
@@ -96,35 +106,68 @@ public class AutoCompleteModel extends JdbcTemplate {
         response.setSkpdAutoCompleteOut(out);
         return response;
     }
-    public SkpdAutoCompleteResponse getJabatanAutoComplete(SkpdAutoCompleteRequest request) {
-        SkpdAutoCompleteResponse response = new SkpdAutoCompleteResponse();
-        SkpdAutoCompleteOut out = new SkpdAutoCompleteOut();
-        SkpdAutoCompleteList outList = new SkpdAutoCompleteList();
+
+    public JabatanAutoCompleteResponse getJabatanAutoComplete(JabatanAutoCompleteRequest request) {
+        JabatanAutoCompleteResponse response = new JabatanAutoCompleteResponse();
+        JabatanAutoCompleteOut out = new JabatanAutoCompleteOut();
+        JabatanAutoCompleteList outList = new JabatanAutoCompleteList();
         ErrorMessage errorMessage = new ErrorMessage();
 
-        String namaOrganisasi = request.getSkpdAutoCompleteIn().getNamaOrganisasi();
-        List<Map<String, Object>> result = getDataSkpdAc(namaOrganisasi);
-        List<SkpdAutoCompleteDetail> list = new ArrayList();
+        String namaJabatan = request.getJabatanAutoCompleteIn().getNamaJabatan();
+        List<Map<String, Object>> result = getDataJabatanAc(namaJabatan);
+        List<JabatanAutoCompleteDetail> list = new ArrayList();
         if (result.size() > 0) {
             for (Map<String, Object> next : result) {
-                SkpdAutoCompleteDetail detail = new SkpdAutoCompleteDetail();
-                detail.setKdOrganisasi((String) next.get("kd_organisasi"));
-                detail.setNamaOrganisasi((String) next.get("nama_organisasi"));
+                JabatanAutoCompleteDetail detail = new JabatanAutoCompleteDetail();
+                detail.setKdJabatan((String) next.get("kd_jabatan"));
+                detail.setNamaJabatan((String) next.get("nama_jabatan"));
                 list.add(detail);
             }
-            outList.setSkpdAutoCompleteDetail(list);
-            out.setSkpdAutoCompleteList(outList);
+            outList.setJabatanAutoCompleteDetail(list);
+            out.setJabatanAutoCompleteList(outList);
 
-            errorMessage.setErrorApi("skpdAutoComplete");
+            errorMessage.setErrorApi("jabatanAutoComplete");
             errorMessage.setErrorCode("00");
             errorMessage.setErrorMessage("suksess");
         } else {
-            errorMessage.setErrorApi("skpdAutoComplete");
+            errorMessage.setErrorApi("jabatanAutoComplete");
             errorMessage.setErrorCode("E0");
             errorMessage.setErrorMessage("Data not Found");
         }
         response.setErrorMessage(errorMessage);
-        response.setSkpdAutoCompleteOut(out);
+        response.setJabatanAutoCompleteOut(out);
+        return response;
+    }
+
+    public GolonganAutoCompleteResponse getGolonganAutoComplete(GolonganAutoCompleteRequest request) {
+        GolonganAutoCompleteResponse response = new GolonganAutoCompleteResponse();
+        GolonganAutoCompleteOut out = new GolonganAutoCompleteOut();
+        GolonganAutoCompleteList outList = new GolonganAutoCompleteList();
+        ErrorMessage errorMessage = new ErrorMessage();
+
+        String kdGolongan = request.getGolonganAutoCompleteIn().getKdGolongan();
+        List<Map<String, Object>> result = getDataGolonganAc(kdGolongan);
+        List<GolonganAutoCompleteDetail> list = new ArrayList();
+        if (result.size() > 0) {
+            for (Map<String, Object> next : result) {
+                GolonganAutoCompleteDetail detail = new GolonganAutoCompleteDetail();
+                detail.setKdGolongan((String) next.get("kd_golongan"));
+                detail.setKepangkatan((String) next.get("kepangkatan"));
+                list.add(detail);
+            }
+            outList.setGolonganAutoCompleteDetail(list);
+            out.setGolonganAutoCompleteList(outList);
+
+            errorMessage.setErrorApi("golonganAutoComplete");
+            errorMessage.setErrorCode("00");
+            errorMessage.setErrorMessage("suksess");
+        } else {
+            errorMessage.setErrorApi("golonganAutoComplete");
+            errorMessage.setErrorCode("E0");
+            errorMessage.setErrorMessage("Data not Found");
+        }
+        response.setErrorMessage(errorMessage);
+        response.setGolonganAutoCompleteOut(out);
         return response;
     }
 
@@ -149,8 +192,20 @@ public class AutoCompleteModel extends JdbcTemplate {
             return null;
         }
     }
+
     private List<Map<String, Object>> getDataJabatanAc(String namaJabatan) {
-        String sql = " SELECT kd_jabatan,nama_jabatan FROM simpeg.tabel_jabatan where nama_jabatan like '%"+namaJabatan+"%';";
+        String sql = " SELECT kd_jabatan,nama_jabatan FROM simpeg.tabel_jabatan where nama_jabatan like '%" + namaJabatan + "%' ";
+        try {
+            List<Map<String, Object>> result = this.queryForList(sql);
+            return result;
+        } catch (DataAccessException dae) {
+            System.out.println("Error : " + dae);
+            return null;
+        }
+    }
+
+    private List<Map<String, Object>> getDataGolonganAc(String kdGolongan) {
+        String sql = "SELECT kd_golongan,kepangkatan FROM simpeg.tabel_golongan where kd_golongan like '%" + kdGolongan + "%' ";
         try {
             List<Map<String, Object>> result = this.queryForList(sql);
             return result;

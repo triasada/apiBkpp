@@ -5,10 +5,21 @@
  */
 package com.bkpp.ws.model.vo.autocomplete.jabatan;
 
+import java.util.List;
+
 /**
  *
  * @author mukticahya
  */
 public class JabatanAutoCompleteList {
+    List<JabatanAutoCompleteDetail> jabatanAutoCompleteDetail;
+
+    public List<JabatanAutoCompleteDetail> getJabatanAutoCompleteDetail() {
+        return jabatanAutoCompleteDetail;
+    }
+
+    public void setJabatanAutoCompleteDetail(List<JabatanAutoCompleteDetail> jabatanAutoCompleteDetail) {
+        this.jabatanAutoCompleteDetail = jabatanAutoCompleteDetail;
+    }
     
 }

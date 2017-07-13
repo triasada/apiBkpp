@@ -7,6 +7,10 @@ package com.bkpp.ws.api;
 
 import com.bkpp.ws.model.AutoCompleteModel;
 import com.bkpp.ws.model.SingleConn;
+import com.bkpp.ws.model.vo.autocomplete.golongan.GolonganAutoCompleteRequest;
+import com.bkpp.ws.model.vo.autocomplete.golongan.GolonganAutoCompleteResponse;
+import com.bkpp.ws.model.vo.autocomplete.jabatan.JabatanAutoCompleteRequest;
+import com.bkpp.ws.model.vo.autocomplete.jabatan.JabatanAutoCompleteResponse;
 import com.bkpp.ws.model.vo.autocomplete.nip.NipAutoCompleteRequest;
 import com.bkpp.ws.model.vo.autocomplete.nip.NipAutoCompleteResponse;
 import com.bkpp.ws.model.vo.autocomplete.skpd.SkpdAutoCompleteRequest;
@@ -33,13 +37,30 @@ public class AutoCompleteController {
         NipAutoCompleteResponse response = model.getNipAutoComplete(request);
         conn.closedSession();
         return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+    } 
 
     @RequestMapping(value = "/skpdAutoComplete", method = RequestMethod.POST)
     public ResponseEntity<SkpdAutoCompleteResponse> skpdAutoComplete(@RequestBody SkpdAutoCompleteRequest request) throws SQLException {
         SingleConn conn = new SingleConn();
         AutoCompleteModel model = new AutoCompleteModel(conn.ds);
         SkpdAutoCompleteResponse response = model.getSkpdAutoComplete(request);
+        conn.closedSession();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    @RequestMapping(value = "/jabatanAutoComplete", method = RequestMethod.POST)
+    public ResponseEntity<JabatanAutoCompleteResponse> jabatanAutoComplete(@RequestBody JabatanAutoCompleteRequest request) throws SQLException {
+        SingleConn conn = new SingleConn();
+        AutoCompleteModel model = new AutoCompleteModel(conn.ds);
+        JabatanAutoCompleteResponse response = model.getJabatanAutoComplete(request);
+        conn.closedSession();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    
+     @RequestMapping(value = "/golonganAutoComplete", method = RequestMethod.POST)
+    public ResponseEntity<GolonganAutoCompleteResponse> golonganAutoComplete(@RequestBody GolonganAutoCompleteRequest request) throws SQLException {
+        SingleConn conn = new SingleConn();
+        AutoCompleteModel model = new AutoCompleteModel(conn.ds);
+        GolonganAutoCompleteResponse response = model.getGolonganAutoComplete(request);
         conn.closedSession();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

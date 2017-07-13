@@ -10,5 +10,14 @@ package com.bkpp.ws.model.vo.autocomplete.jabatan;
  * @author mukticahya
  */
 public class JabatanAutoCompleteIn {
+    String namaJabatan;
+
+    public String getNamaJabatan() {
+        return namaJabatan;
+    }
+
+    public void setNamaJabatan(String namaJabatan) {
+        this.namaJabatan = namaJabatan;
+    }
     
 }
