@@ -29,6 +29,7 @@ public class CariNipController {
         SingleConn conn = new SingleConn();
         BkppModel model = new BkppModel(conn.ds);
         CariNipRespons respons = model.getCariNip(request);
+        conn.closedSession();
         return new ResponseEntity<>(respons, HttpStatus.OK);
     }
 }

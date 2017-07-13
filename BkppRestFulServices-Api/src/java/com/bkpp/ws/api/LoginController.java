@@ -26,6 +26,7 @@ public class LoginController {
        SingleConn conn = new SingleConn();
         LoginModel model = new LoginModel(conn.ds);
         LoginResponse response = model.login(request);
+        conn.closedSession();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

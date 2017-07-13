@@ -8,17 +8,16 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 
-public class SingleConn{
+public class SingleConn {
 //  private static final Logger log = Logger.getLogger("");
 
     public static SingleConnectionDataSource ds;
     public static Connection conn;
     Session session = null;
 
-    public SingleConn() throws SQLException{
+    public SingleConn() throws SQLException {
         String host = "simpeg.tangerangselatankota.go.id";
         String servUser = "root";
         String servPwd = "bkpp::2016!123";
@@ -26,7 +25,7 @@ public class SingleConn{
 
         String rhost = "localhost";
         int rport = 3306;
-        int lport = 2222;
+        int lport = 3307;
 
         String driverName = "com.mysql.jdbc.Driver";
         String db2Url = "jdbc:mysql://localhost:" + lport + "/simpeg";
@@ -51,7 +50,7 @@ public class SingleConn{
             // Connect to remote server
             session.connect();
             // Apply the port forwarding
-            session.setPortForwardingL("0.0.0.0",lport, rhost, rport);
+            session.setPortForwardingL("0.0.0.0", lport, rhost, rport);
             // Connect to remote database
             conn = DriverManager.getConnection(db2Url, dbUsr, dbPwd);
 //      log.log(Level.INFO, "Database connection success");
@@ -71,4 +70,11 @@ public class SingleConn{
 //            }
 //        }
     }
+
+    public void closedSession() {
+        if (session != null && session.isConnected()) {
+            session.disconnect();
+        }
+    }
+
 }
