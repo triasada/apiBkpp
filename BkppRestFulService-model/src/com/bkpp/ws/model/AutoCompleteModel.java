@@ -114,13 +114,15 @@ public class AutoCompleteModel extends JdbcTemplate {
         ErrorMessage errorMessage = new ErrorMessage();
 
         String namaJabatan = request.getJabatanAutoCompleteIn().getNamaJabatan();
-        List<Map<String, Object>> result = getDataJabatanAc(namaJabatan);
+        String kdOrganisasi = request.getJabatanAutoCompleteIn().getKdOrganisasi();
+        List<Map<String, Object>> result = getDataJabatanAc(namaJabatan,kdOrganisasi);
         List<JabatanAutoCompleteDetail> list = new ArrayList();
         if (result.size() > 0) {
             for (Map<String, Object> next : result) {
                 JabatanAutoCompleteDetail detail = new JabatanAutoCompleteDetail();
                 detail.setKdJabatan((String) next.get("kd_jabatan"));
                 detail.setNamaJabatan((String) next.get("nama_jabatan"));
+                detail.setKdOrganisasi((String)next.get("kd_organisasi"));
                 list.add(detail);
             }
             outList.setJabatanAutoCompleteDetail(list);
@@ -153,6 +155,7 @@ public class AutoCompleteModel extends JdbcTemplate {
                 GolonganAutoCompleteDetail detail = new GolonganAutoCompleteDetail();
                 detail.setKdGolongan((String) next.get("kd_golongan"));
                 detail.setKepangkatan((String) next.get("kepangkatan"));
+                detail.setIdGolongan(((Integer) next.get("id_golongan")).toString());
                 list.add(detail);
             }
             outList.setGolonganAutoCompleteDetail(list);
@@ -193,8 +196,9 @@ public class AutoCompleteModel extends JdbcTemplate {
         }
     }
 
-    private List<Map<String, Object>> getDataJabatanAc(String namaJabatan) {
-        String sql = " SELECT kd_jabatan,nama_jabatan FROM simpeg.tabel_jabatan where nama_jabatan like '%" + namaJabatan + "%' ";
+    private List<Map<String, Object>> getDataJabatanAc(String namaJabatan, String kdOrganisasi) {
+        String sql = " SELECT kd_jabatan,nama_jabatan,kd_organisasi FROM simpeg.tabel_jabatan where "
+                + "nama_jabatan like '%" + namaJabatan + "%' and kd_organisasi like '%" + kdOrganisasi + "%'";
         try {
             List<Map<String, Object>> result = this.queryForList(sql);
             return result;
@@ -205,7 +209,7 @@ public class AutoCompleteModel extends JdbcTemplate {
     }
 
     private List<Map<String, Object>> getDataGolonganAc(String kdGolongan) {
-        String sql = "SELECT kd_golongan,kepangkatan FROM simpeg.tabel_golongan where kd_golongan like '%" + kdGolongan + "%' ";
+        String sql = "SELECT kd_golongan,kepangkatan,id_golongan FROM simpeg.tabel_golongan where kd_golongan like '%" + kdGolongan + "%' ";
         try {
             List<Map<String, Object>> result = this.queryForList(sql);
             return result;

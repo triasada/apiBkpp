@@ -12,6 +12,17 @@ package com.bkpp.ws.model.vo.autocomplete.golongan;
 public class GolonganAutoCompleteDetail {
     String kdGolongan;
     String kepangkatan;
+    String idGolongan;
+
+    public String getIdGolongan() {
+        return idGolongan;
+    }
+
+    public void setIdGolongan(String idGolongan) {
+        this.idGolongan = idGolongan;
+    }
+    
+    
 
     public String getKdGolongan() {
         return kdGolongan;

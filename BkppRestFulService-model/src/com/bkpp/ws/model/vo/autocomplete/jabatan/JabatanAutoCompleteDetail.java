@@ -12,7 +12,16 @@ package com.bkpp.ws.model.vo.autocomplete.jabatan;
 public class JabatanAutoCompleteDetail {
     String kdJabatan;
     String namaJabatan;
+    String kdOrganisasi;
 
+    public String getKdOrganisasi() {
+        return kdOrganisasi;
+    }
+
+    public void setKdOrganisasi(String kdOrganisasi) {
+        this.kdOrganisasi = kdOrganisasi;
+    }
+    
     public String getKdJabatan() {
         return kdJabatan;
     }
