@@ -12,6 +12,35 @@ package com.bkpp.ws.model.vo.autocomplete.nip;
 public class NipAutoCompleteDetail {
     String nip;
     String namaLengkap;
+    String kdJabatan;
+    String idIdentitas;
+    String kdOrganisasi;
+
+    public String getKdJabatan() {
+        return kdJabatan;
+    }
+
+    public void setKdJabatan(String kdJabatan) {
+        this.kdJabatan = kdJabatan;
+    }
+
+    public String getIdIdentitas() {
+        return idIdentitas;
+    }
+
+    public void setIdIdentitas(String idIdentitas) {
+        this.idIdentitas = idIdentitas;
+    }
+
+    public String getKdOrganisasi() {
+        return kdOrganisasi;
+    }
+
+    public void setKdOrganisasi(String kdOrganisasi) {
+        this.kdOrganisasi = kdOrganisasi;
+    }
+    
+    
 
     public String getNip() {
         return nip;

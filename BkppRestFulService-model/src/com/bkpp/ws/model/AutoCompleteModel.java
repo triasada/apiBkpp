@@ -57,6 +57,9 @@ public class AutoCompleteModel extends JdbcTemplate {
                 NipAutoCompleteDetail detail = new NipAutoCompleteDetail();
                 detail.setNamaLengkap((String) next.get("nama_lengkap"));
                 detail.setNip((String) next.get("nip"));
+                detail.setIdIdentitas(((Integer) next.get("id_identitas")).toString());
+                detail.setKdJabatan((String) next.get("kd_jabatan"));
+                detail.setKdOrganisasi((String) next.get("kd_organisasi"));               
                 list.add(detail);
             }
             outList.setAutoCompleteDetail(list);
@@ -115,14 +118,14 @@ public class AutoCompleteModel extends JdbcTemplate {
 
         String namaJabatan = request.getJabatanAutoCompleteIn().getNamaJabatan();
         String kdOrganisasi = request.getJabatanAutoCompleteIn().getKdOrganisasi();
-        List<Map<String, Object>> result = getDataJabatanAc(namaJabatan,kdOrganisasi);
+        List<Map<String, Object>> result = getDataJabatanAc(namaJabatan, kdOrganisasi);
         List<JabatanAutoCompleteDetail> list = new ArrayList();
         if (result.size() > 0) {
             for (Map<String, Object> next : result) {
                 JabatanAutoCompleteDetail detail = new JabatanAutoCompleteDetail();
                 detail.setKdJabatan((String) next.get("kd_jabatan"));
                 detail.setNamaJabatan((String) next.get("nama_jabatan"));
-                detail.setKdOrganisasi((String)next.get("kd_organisasi"));
+                detail.setKdOrganisasi((String) next.get("kd_organisasi"));
                 list.add(detail);
             }
             outList.setJabatanAutoCompleteDetail(list);
@@ -175,7 +178,12 @@ public class AutoCompleteModel extends JdbcTemplate {
     }
 
     private List<Map<String, Object>> getDataNipAC(String nip) {
-        String sql = " select nip,nama_lengkap from simpeg.users where nip like '" + nip + "%' ";
+        String sql = "SELECT su.nip,su.nama_lengkap,su.kd_organisasi,rj.kd_jabatan,i.id_identitas,max(mytmt) mytmt "
+                + "FROM simpeg.users su \n"
+                + "join simpeg.identitas i on i.nip = su.nip\n"
+                + "join simpeg.riwayat_jabatan rj on rj.id_identitas = i.id_identitas\n"
+                + " where su.nip like '" + nip + "%' "
+                + " group by su.nip";
         try {
             List<Map<String, Object>> result = this.queryForList(sql);
             return result;

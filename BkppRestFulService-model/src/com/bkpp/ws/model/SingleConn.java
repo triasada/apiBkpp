@@ -28,7 +28,7 @@ public class SingleConn {
         int lport = 3307;
 
         String driverName = "com.mysql.jdbc.Driver";
-        String db2Url = "jdbc:mysql://localhost:" + lport + "/simpeg";
+        String db2Url = "jdbc:mysql://localhost:" + lport + "/simpeg?zeroDateTimeBehavior=convertToNull";
         String dbUsr = "root";
         String dbPwd = "bkpp::2016!123";
 
